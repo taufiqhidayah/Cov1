@@ -11,7 +11,8 @@ import ProfileScreen from './src/layout/ProfileScreen'
 import MentorScreen from './src/layout/lisdata/MentorScreen'
 import DetailProfileScreen from './src/layout/lisdata/DetailProfileScreen';
 
-// type Props = {};
+
+type Props = {};
 const Tab = createBottomTabNavigator();
 const MentorStack = createStackNavigator();
 function MyTabs() {
@@ -26,6 +27,7 @@ function MyTabs() {
               ? 'rss'
               : 'rss';
           } else if (route.name === 'Mentors') {
+
             iconName = focused ? 'users' : 'users';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'user' : 'user';

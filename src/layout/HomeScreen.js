@@ -1,18 +1,42 @@
 import React, { Component } from 'react';
-import { Text, Image, View, StatusBar, Picker, FlatList, Dimensions, TouchableHighlight } from 'react-native'
+import { Text, Image, View, StatusBar, Picker, FlatList, Dimensions, TouchableHighlight, StyleSheet } from 'react-native'
 import { Header, Button, Card, Icon } from 'react-native-elements'
 import axios from 'axios';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
 
 type Props = {};
 export default class Category extends Component<Props> {
+
 
   constructor(props) {
     super(props)
     prefik_url = 'https://api.kawalcorona.com/indonesia/';
     this.state = {
-      cases: []
-    };
+      cases: [],
+      loading: true,
+      region: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    }
   }
+
+
   componentDidMount() {
     axios.get('https://api.kawalcorona.com/indonesia/')
       .then(res => {
@@ -86,7 +110,38 @@ export default class Category extends Component<Props> {
         <View>
           {this.list()}
         </View>
-
+        <View style={{height: 400,width: 400}}>
+          {/* <MapView
+            initialRegion={this.state.region}
+            showsUserLocation={true}
+            onMapReady={this.onMapReady}
+            onRegionChangeComplete={this.onRegionChange}>
+            <MapView.Marker
+              coordinate={{
+                "latitude": this.state.region.latitude,
+                "longitude": this.state.region.longitude
+              }}
+              title={"Your Location"}
+              draggable />
+          </MapView>); */}
+          <MapView
+            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+            style={styles.map}
+            initialRegion={this.state.region}
+            showsUserLocation={true}
+            onMapReady={this.onMapReady}
+            onRegionChangeComplete={this.onRegionChange}>
+            <MapView.Marker
+              coordinate={{
+                "latitude": this.state.region.latitude,
+                "longitude": this.state.region.longitude
+              }}
+              title={"Your Location"}
+              draggable />
+          
+          
+          </MapView>
+        </View>
       </View>
     );
   }
