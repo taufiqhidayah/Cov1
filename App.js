@@ -14,7 +14,7 @@ import DetailProfileScreen from './src/layout/lisdata/DetailProfileScreen';
 
 type Props = {};
 const Tab = createBottomTabNavigator();
-const MentorStack = createStackNavigator();
+const NewsStack = createStackNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
@@ -24,11 +24,11 @@ function MyTabs() {
           if (route.name === 'Home') {
 
             iconName = focused
-              ? 'rss'
-              : 'rss';
-          } else if (route.name === 'Mentors') {
+              ? 'home'
+              : 'home';
+          } else if (route.name === 'News') {
 
-            iconName = focused ? 'users' : 'users';
+            iconName = focused ? 'rss' : 'rss';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'user' : 'user';
           }
@@ -42,11 +42,11 @@ function MyTabs() {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Mentors">
+      <Tab.Screen name="News">
         {() => (
-          <MentorStack.Navigator>
-            <MentorStack.Screen options={{
-              title: 'MENTOR',
+          <NewsStack.Navigator>
+            <NewsStack.Screen options={{
+              title: 'News',
 
               cardShadowEnabled: false,
               headerRight: () => (
@@ -62,8 +62,8 @@ function MyTabs() {
                   </View>
                 </TouchableHighlight>
               ),
-            }} name="Mentor" component={MentorScreen} />
-            <MentorStack.Screen name="Details" component={DetailProfileScreen}
+            }} name="News" component={MentorScreen} />
+            <NewsStack.Screen name="Details" component={DetailProfileScreen}
               options={{
                 headerRight: () => (
                   <View 
@@ -76,7 +76,7 @@ function MyTabs() {
                 )
               }}
             />
-          </MentorStack.Navigator>
+          </NewsStack.Navigator>
         )}
       </Tab.Screen>
       <Tab.Screen name="Profile" component={ProfileScreen} />
